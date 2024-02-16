@@ -2,23 +2,23 @@ package com.example.movie_app.controller;
 
 import com.example.movie_app.model.Actor;
 import com.example.movie_app.repository.ActorRepository;
+import com.example.movie_app.service.ActorService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
+@RequestMapping("/actors")
 @CrossOrigin(origins = "http://localhost:3000")
+@RequiredArgsConstructor
 public class ActorController {
 
-    @Autowired
-    ActorRepository actorRepository;
+    private final ActorService actorService;
 
-    @GetMapping("/actors")
+    @GetMapping
     public List<Actor> getAllActors(){
-        return actorRepository.findAll();
+        return actorService.getAllActors();
     }
 }

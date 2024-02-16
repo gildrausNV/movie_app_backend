@@ -1,23 +1,33 @@
 package com.example.movie_app.controller;
 
+import com.example.movie_app.model.Actor;
 import com.example.movie_app.model.Movie;
-import com.example.movie_app.repository.MovieRepository;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import com.example.movie_app.service.MovieService;
+import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
+@RequestMapping("/movies")
 @CrossOrigin(origins = "http://localhost:3000")
+@RequiredArgsConstructor
 public class MovieController {
-    @Autowired
-    MovieRepository movieRepository;
+    private final MovieService movieService;
 
-    @GetMapping("/movies")
+    @GetMapping
     public List<Movie> getAllMovies(){
-        return movieRepository.findAll();
+        return movieService.getAll();
     }
+
+    @GetMapping("/{movieId}")
+    public Movie getMovieById(@PathVariable String movieId){
+        return movieService.getMovieById(movieId);
+    }
+
+    @GetMapping("/actors/{movieId}")
+    public List<Actor> getMovieActors(@PathVariable String movieId) {
+        return movieService.getMovieActors(movieId);
+    }
+
 }

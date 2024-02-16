@@ -5,6 +5,8 @@ import lombok.*;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+import java.util.List;
+
 @Getter
 @Setter
 @ToString
@@ -15,8 +17,9 @@ import org.springframework.data.mongodb.core.mapping.Document;
 public class Movie {
     @Id
     private String id;
-    private String name;
+    private String title;
     private String releaseDate;
     private String description;
     private String image;
+    private List<ActorRole> roles;
 }
