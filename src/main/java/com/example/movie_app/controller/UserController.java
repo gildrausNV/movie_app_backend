@@ -31,8 +31,13 @@ public class UserController {
         return userService.findWatchlistByUserId(userId);
     }
 
-    @PostMapping("/watchlist/{userId}")
-    public Watchlist addToWatchlist(@PathVariable String userId, @RequestBody Movie movie){
-        return userService.addToWatchlist(movie, userId);
+    @PostMapping("/watchlist")
+    public Watchlist addToWatchlist(@RequestBody Movie movie){
+        return userService.addToWatchlist(movie);
+    }
+
+    @DeleteMapping("/watchlist")
+    public Watchlist removeFromWatchlist(@RequestBody Movie movie){
+        return userService.removeFromWatchlist(movie);
     }
 }

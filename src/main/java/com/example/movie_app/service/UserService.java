@@ -35,8 +35,9 @@ public class UserService {
         return watchlistRepository.findWatchlistByUser_Id(userId);
     }
 
-    public Watchlist addToWatchlist(Movie movie, String userId) {
-        Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(userId);
+    public Watchlist addToWatchlist(Movie movie) {
+        User currentlyLoggedInUser = getCurrentlyLoggedInUser();
+        Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
         List<Movie> movies = watchlist.getMovies();
         movies.add(movie);
         watchlist.setMovies(movies);
@@ -53,5 +54,13 @@ public class UserService {
 
     public User getCurrentlyLoggedInUser() {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+    }
+
+    public Watchlist removeFromWatchlist(Movie movie) {
+        User currentlyLoggedInUser = getCurrentlyLoggedInUser();
+        Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
+        List<Movie> movies = watchlist.getMovies();
+        movies.remove(movie);
+        return watchlistRepository.save(watchlist);
     }
 }
