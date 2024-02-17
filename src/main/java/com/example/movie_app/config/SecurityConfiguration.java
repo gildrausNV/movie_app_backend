@@ -28,7 +28,8 @@ public class SecurityConfiguration {
                         .requestMatchers("/auth/**").permitAll()
                         .requestMatchers("/movies**").hasAnyAuthority(Role.USER.getAuthority())
                         .requestMatchers("/actors**").hasAnyAuthority(Role.USER.getAuthority())
-                        .requestMatchers("/users**").hasAnyAuthority(Role.USER.getAuthority())
+                        .requestMatchers("/users**").permitAll()
+
 
                         .anyRequest().authenticated())
 //                .sessionManagement()
