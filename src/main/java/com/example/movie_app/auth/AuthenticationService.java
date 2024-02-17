@@ -3,6 +3,7 @@ import com.example.movie_app.config.JwtService;
 import com.example.movie_app.model.Role;
 import com.example.movie_app.model.User;
 import com.example.movie_app.repository.UserRepository;
+import com.example.movie_app.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
@@ -19,6 +20,7 @@ import java.util.stream.IntStream;
 @RequiredArgsConstructor
 public class AuthenticationService {
     private final UserRepository userRepository;
+    private final UserService userService;
     private final PasswordEncoder passwordEncoder;
     private final JwtService jwtService;
     private final AuthenticationManager authenticationManager;
@@ -32,7 +34,8 @@ public class AuthenticationService {
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
                 .build();
-        userRepository.save(user);
+        userService.save(user);
+        userService.createWatchlist(user);
 
         var jwtToken = jwtService.generateToken(user);
         return new AuthenticationResponse(jwtToken, Role.USER, user.getId());
