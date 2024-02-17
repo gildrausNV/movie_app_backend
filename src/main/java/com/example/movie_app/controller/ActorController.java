@@ -27,4 +27,9 @@ public class ActorController {
     public Actor getActorById(@PathVariable String actorId){
         return actorService.getActorById(actorId);
     }
+
+    @PostMapping
+    public Actor saveActor(@RequestBody Actor actor){
+        return actorService.saveActor(actor);
+    }
 }

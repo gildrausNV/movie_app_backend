@@ -30,4 +30,8 @@ public class MovieController {
         return movieService.getMovieActors(movieId);
     }
 
+    @PostMapping
+    public Movie saveMovie(@RequestBody Movie movie){
+        return movieService.saveMovie(movie);
+    }
 }

@@ -21,4 +21,8 @@ public class ActorService {
     public Actor getActorById(String actorId) {
         return actorRepository.findById(actorId).orElseThrow(NoSuchElementException::new);
     }
+
+    public Actor saveActor(Actor actor) {
+        return actorRepository.save(actor);
+    }
 }
