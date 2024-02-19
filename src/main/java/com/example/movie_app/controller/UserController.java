@@ -26,6 +26,11 @@ public class UserController {
         return userService.getUserById(userId);
     }
 
+    @GetMapping("/currentlyLoggedIn")
+    public User getCurrentlyLoggedIn(){
+        return userService.getCurrentlyLoggedInUser();
+    }
+
     @GetMapping("/watchlist/{userId}")
     public Watchlist getWatchlistByUser(@PathVariable String userId){
         return userService.findWatchlistByUserId(userId);
