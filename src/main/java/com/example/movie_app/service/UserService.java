@@ -3,6 +3,7 @@ package com.example.movie_app.service;
 import com.example.movie_app.model.Movie;
 import com.example.movie_app.model.User;
 import com.example.movie_app.model.Watchlist;
+import com.example.movie_app.repository.MovieRepository;
 import com.example.movie_app.repository.UserRepository;
 import com.example.movie_app.repository.WatchlistRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,7 @@ import java.util.NoSuchElementException;
 public class UserService {
     private final UserRepository userRepository;
     private final WatchlistRepository watchlistRepository;
+    private final MovieRepository movieRepository;
 
     public List<User> getAll() {
         return userRepository.findAll();
@@ -35,9 +37,10 @@ public class UserService {
         return watchlistRepository.findWatchlistByUser_Id(userId);
     }
 
-    public Watchlist addToWatchlist(Movie movie) {
+    public Watchlist addToWatchlist(String movieId) {
         User currentlyLoggedInUser = getCurrentlyLoggedInUser();
         Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
+        Movie movie = movieRepository.findById(movieId).orElseThrow(NoSuchElementException::new);
         List<Movie> movies = watchlist.getMovies();
         movies.add(movie);
         watchlist.setMovies(movies);
@@ -56,11 +59,17 @@ public class UserService {
         return (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
     }
 
-    public Watchlist removeFromWatchlist(Movie movie) {
+    public Watchlist removeFromWatchlist(String movieId) {
         User currentlyLoggedInUser = getCurrentlyLoggedInUser();
         Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
+        Movie movie = movieRepository.findById(movieId).orElseThrow(NoSuchElementException::new);
         List<Movie> movies = watchlist.getMovies();
         movies.remove(movie);
         return watchlistRepository.save(watchlist);
+    }
+
+    public Watchlist getWatchlist() {
+        User currentlyLoggedInUser = getCurrentlyLoggedInUser();
+        return watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
     }
 }

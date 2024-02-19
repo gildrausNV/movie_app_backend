@@ -1,11 +1,11 @@
 package com.example.movie_app.service;
 
-import com.example.movie_app.model.Actor;
-import com.example.movie_app.model.ActorRole;
-import com.example.movie_app.model.Movie;
+import com.example.movie_app.model.*;
 import com.example.movie_app.repository.ActorRepository;
 import com.example.movie_app.repository.MovieRepository;
+import com.example.movie_app.repository.WatchlistRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -18,6 +18,7 @@ public class MovieService {
 
     private final MovieRepository movieRepository;
     private final ActorRepository actorRepository;
+    private final WatchlistRepository watchlistRepository;
 
     public List<Movie> getAll(){
         return movieRepository.findAll();
@@ -42,5 +43,13 @@ public class MovieService {
 
     public Movie saveMovie(Movie movie) {
         return movieRepository.save(movie);
+    }
+
+    public boolean isInWatchlist(String movieId) {
+        User currentlyLoggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+        Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
+        List<Movie> movies = watchlist.getMovies();
+        Movie movie = getMovieById(movieId);
+        return movies.contains(movie);
     }
 }

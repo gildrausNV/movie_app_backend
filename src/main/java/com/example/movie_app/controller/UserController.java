@@ -31,18 +31,23 @@ public class UserController {
         return userService.getCurrentlyLoggedInUser();
     }
 
+    @GetMapping("/watchlist")
+    public Watchlist getWatchlist(){
+        return userService.getWatchlist();
+    }
+
     @GetMapping("/watchlist/{userId}")
     public Watchlist getWatchlistByUser(@PathVariable String userId){
         return userService.findWatchlistByUserId(userId);
     }
 
-    @PostMapping("/watchlist")
-    public Watchlist addToWatchlist(@RequestBody Movie movie){
-        return userService.addToWatchlist(movie);
+    @PostMapping("/watchlist/{movieId}")
+    public Watchlist addToWatchlist(@PathVariable String movieId){
+        return userService.addToWatchlist(movieId);
     }
 
-    @DeleteMapping("/watchlist")
-    public Watchlist removeFromWatchlist(@RequestBody Movie movie){
-        return userService.removeFromWatchlist(movie);
+    @DeleteMapping("/watchlist/{movieId}")
+    public Watchlist removeFromWatchlist(@PathVariable String movieId){
+        return userService.removeFromWatchlist(movieId);
     }
 }

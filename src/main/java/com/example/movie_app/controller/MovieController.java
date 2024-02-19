@@ -34,4 +34,9 @@ public class MovieController {
     public Movie saveMovie(@RequestBody Movie movie){
         return movieService.saveMovie(movie);
     }
+
+    @GetMapping("/isInMyWatchlist/{movieId}")
+    public boolean isInWatchlist(@PathVariable String movieId){
+        return movieService.isInWatchlist(movieId);
+    }
 }

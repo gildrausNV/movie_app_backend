@@ -37,6 +37,7 @@ public class SecurityConfiguration {
                         .requestMatchers(HttpMethod.POST, "/actors**").hasAnyAuthority(Role.ADMIN.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/users**").hasAnyAuthority(Role.USER.getAuthority())
                         .requestMatchers(HttpMethod.POST, "/comments**").hasAnyAuthority(Role.USER.getAuthority())
+                        .requestMatchers(HttpMethod.DELETE, "/comments**").hasAnyAuthority(Role.USER.getAuthority())
 
                         .anyRequest().authenticated())
 //                .sessionManagement()
