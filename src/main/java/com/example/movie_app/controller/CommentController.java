@@ -15,12 +15,12 @@ public class CommentController {
 
     private final CommentService commentService;
 
-    @GetMapping("/{movieId}")
+    @GetMapping("/movie/{movieId}")
     public List<Comment> getMovieComments(@PathVariable String movieId){
         return commentService.getMovieComments(movieId);
     }
 
-    @GetMapping("/{userId}")
+    @GetMapping("/user/{userId}")
     public List<Comment> getUserComments(@PathVariable String userId){
         return commentService.getUserComments(userId);
     }
