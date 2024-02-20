@@ -33,6 +33,7 @@ public class AuthenticationService {
                 .username(request.getUsername())
                 .password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER)
+                .avatar(request.getAvatar())
                 .build();
         userService.save(user);
         userService.createWatchlist(user);
