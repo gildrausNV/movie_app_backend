@@ -29,10 +29,15 @@ public class CommentService {
         return commentRepository.findCommentsByUser_Id(userId);
     }
 
-    public Comment save(String movieId, String content) {
+    public Comment save(String movieId, Comment comment) {
         User currentlyLoggedInUser = (User) SecurityContextHolder.getContext().getAuthentication().getPrincipal();
         Movie movie = movieRepository.findById(movieId).orElseThrow(NoSuchElementException::new);
-        Comment comment = new Comment(movie, currentlyLoggedInUser, content);
+        comment.setUser(currentlyLoggedInUser);
+        comment.setMovie(movie);
         return commentRepository.save(comment);
+    }
+
+    public void deleteComment(String commentId) {
+        commentRepository.deleteById(commentId);
     }
 }

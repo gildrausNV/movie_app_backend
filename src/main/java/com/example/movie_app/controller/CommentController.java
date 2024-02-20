@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("/comments")
@@ -26,7 +27,13 @@ public class CommentController {
     }
 
     @PostMapping("/{movieId}")
-    public Comment saveComment(@PathVariable String movieId, @RequestBody String content){
-        return commentService.save(movieId, content);
+    public Comment saveComment(@PathVariable String movieId, @RequestBody Comment comment) {
+        return commentService.save(movieId, comment);
     }
+
+    @DeleteMapping("/{commentId}")
+    public void deleteComment(@PathVariable String commentId){
+        commentService.deleteComment(commentId);
+    }
+
 }

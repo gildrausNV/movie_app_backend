@@ -42,7 +42,11 @@ public class UserService {
         Watchlist watchlist = watchlistRepository.findWatchlistByUser_Id(currentlyLoggedInUser.getId());
         Movie movie = movieRepository.findById(movieId).orElseThrow(NoSuchElementException::new);
         List<Movie> movies = watchlist.getMovies();
-        movies.add(movie);
+
+        if(!movies.contains(movie)){
+            movies.add(movie);
+        }
+
         watchlist.setMovies(movies);
         return watchlistRepository.save(watchlist);
     }
