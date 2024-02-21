@@ -25,4 +25,14 @@ public class ActorService {
     public Actor saveActor(Actor actor) {
         return actorRepository.save(actor);
     }
+
+    public List<Actor> saveActors(List<Actor> actors) {
+        List<Actor> currentActors = actorRepository.findAll();
+        for (Actor actor: actors){
+            if(!currentActors.contains(actor)){
+                actorRepository.save(actor);
+            }
+        }
+        return actorRepository.findAll();
+    }
 }

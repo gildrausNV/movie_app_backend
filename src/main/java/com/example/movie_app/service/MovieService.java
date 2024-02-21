@@ -60,6 +60,7 @@ public class MovieService {
         existingMovie.setImage(movie.getImage());
         existingMovie.setTitle(movie.getTitle());
         existingMovie.setReleaseDate(movie.getReleaseDate());
+        existingMovie.setRoles(movie.getRoles());
 
         return movieRepository.save(existingMovie);
     }
