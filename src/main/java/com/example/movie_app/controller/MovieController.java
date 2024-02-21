@@ -39,4 +39,9 @@ public class MovieController {
     public boolean isInWatchlist(@PathVariable String movieId){
         return movieService.isInWatchlist(movieId);
     }
+
+    @PutMapping("/{movieId}")
+    public Movie updateMovie(@PathVariable String movieId, @RequestBody Movie movie){
+        return movieService.updateMovie(movieId, movie);
+    }
 }

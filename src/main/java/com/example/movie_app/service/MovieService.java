@@ -52,4 +52,15 @@ public class MovieService {
         Movie movie = getMovieById(movieId);
         return movies.contains(movie);
     }
+
+    public Movie updateMovie(String movieId, Movie movie) {
+        Movie existingMovie = movieRepository.findById(movieId).orElseThrow(NoSuchElementException::new);
+
+        existingMovie.setDescription(movie.getDescription());
+        existingMovie.setImage(movie.getImage());
+        existingMovie.setTitle(movie.getTitle());
+        existingMovie.setReleaseDate(movie.getReleaseDate());
+
+        return movieRepository.save(existingMovie);
+    }
 }
