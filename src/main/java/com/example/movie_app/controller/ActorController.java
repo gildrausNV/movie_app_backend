@@ -1,6 +1,7 @@
 package com.example.movie_app.controller;
 
 import com.example.movie_app.model.Actor;
+import com.example.movie_app.model.Movie;
 import com.example.movie_app.repository.ActorRepository;
 import com.example.movie_app.service.ActorService;
 import lombok.Getter;
@@ -32,9 +33,8 @@ public class ActorController {
     public Actor saveActor(@RequestBody Actor actor){
         return actorService.saveActor(actor);
     }
-
-//    @PostMapping
-//    public List<Actor> saveActors(@RequestBody List<Actor> actors){
-//        return actorService.saveActors(actors);
-//    }
+    @GetMapping("/search/{firstName}")
+    public List<Actor> searchActors(@PathVariable String firstName){
+        return actorService.searchActors(firstName);
+    }
 }

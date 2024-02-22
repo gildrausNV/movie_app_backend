@@ -1,6 +1,7 @@
 package com.example.movie_app.service;
 
 import com.example.movie_app.model.Actor;
+import com.example.movie_app.model.Movie;
 import com.example.movie_app.repository.ActorRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -34,5 +35,9 @@ public class ActorService {
             }
         }
         return actorRepository.findAll();
+    }
+
+    public List<Actor> searchActors(String firstName) {
+        return actorRepository.findActorByFirstName(firstName);
     }
 }

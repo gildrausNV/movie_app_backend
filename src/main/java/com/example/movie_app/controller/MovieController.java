@@ -44,4 +44,9 @@ public class MovieController {
     public Movie updateMovie(@PathVariable String movieId, @RequestBody Movie movie){
         return movieService.updateMovie(movieId, movie);
     }
+
+    @GetMapping("/search/{title}")
+    public List<Movie> searchMovies(@PathVariable String title){
+        return movieService.searchMovies(title);
+    }
 }

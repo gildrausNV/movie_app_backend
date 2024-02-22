@@ -64,4 +64,8 @@ public class MovieService {
 
         return movieRepository.save(existingMovie);
     }
+
+    public List<Movie> searchMovies(String title) {
+        return movieRepository.findMoviesByTitleLike(title);
+    }
 }
